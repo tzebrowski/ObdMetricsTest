@@ -25,6 +25,7 @@ import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.obd.metrics.api.model.ObdMetric;
 import org.obd.metrics.api.model.Reply;
 import org.obd.metrics.api.model.ReplyObserver;
+import org.obd.metrics.command.ATCommand;
 import org.obd.metrics.command.Command;
 import org.obd.metrics.pid.PidDefinition;
 
@@ -71,5 +72,16 @@ public final class DataCollector extends ReplyObserver<Reply<?>> {
 		if (reply instanceof ObdMetric) {
 			metrics.put(((ObdMetric) reply).getCommand().getPid(), (ObdMetric) reply);
 		}
+	}
+	
+	public Reply<?> findATResetCommand() {
+		final ATCommand key = new ATCommand("Z");
+		if (data.containsKey(key)) {
+			final List<Reply<?>> collection = (List<Reply<?>>) data.get(key);
+			if (!collection.isEmpty()) {
+				return collection.get(0);
+			}
+		} 
+		return null;
 	}
 }
