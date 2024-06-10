@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.tzebrowski</groupId>
 	<artifactId>obd-metrics-test</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 
 	<url>https://github.com/tzebrowski/ObdMetricsTest</url>
 	<licenses>
