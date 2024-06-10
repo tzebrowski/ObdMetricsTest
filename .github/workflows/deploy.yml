@@ -30,7 +30,6 @@ jobs:
       run: mvn clean package --file pom.xml
 
     - name: Deploy Snapshots with Maven
-      if: ${{ false }}
       run: mvn -B deploy --file pom.xml -s .github/workflows/maven_settings.xml -DretryFailedDeploymentCount=10
       env:
         CI_DEPLOY_USERNAME: ${{ secrets.CI_DEPLOY_USERNAME }}
