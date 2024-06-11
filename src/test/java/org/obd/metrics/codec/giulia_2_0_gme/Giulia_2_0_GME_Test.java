@@ -16,18 +16,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.obd.metrics.test.utils;
+package org.obd.metrics.codec.giulia_2_0_gme;
 
-import org.obd.metrics.pid.PidDefinition;
-import org.obd.metrics.pid.PidDefinitionRegistry;
+import org.obd.metrics.test.CodecTest;
 
-public interface PIDsRegistry extends PidDefinitionRegistry {
+public interface Giulia_2_0_GME_Test extends CodecTest {
 
-	default PidDefinition findBy(String pid) {
-		return findAll()
-				.stream()
-				.filter(p -> p.getPid().equals(pid))
-				.findFirst()
-				.orElse(null);
+	public default String getPidFile() {
+		return "giulia_2.0_gme.json";
 	}
 }

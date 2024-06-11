@@ -16,38 +16,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.obd.metrics.test.utils;
+package org.obd.metrics.test;
 
-import java.io.ByteArrayInputStream;
-import java.util.concurrent.TimeUnit;
+import org.obd.metrics.pid.PidDefinition;
+import org.obd.metrics.pid.PidDefinitionRegistry;
 
-public final class MutableByteArrayInputStream extends ByteArrayInputStream {
-	private final long readTimeout;
-	private final boolean simulateReadError;
+public interface PIDsRegistry extends PidDefinitionRegistry {
 
-	public MutableByteArrayInputStream(long readTimeout, boolean simulateReadError) {
-		super("".getBytes());
-		this.readTimeout = readTimeout;
-		this.simulateReadError = simulateReadError;
-	}
-
-	@Override
-	public synchronized int read() {
-		if (simulateReadError) {
-			throw new RuntimeException("Read exception");
-		}
-
-		int read = super.read();
-		try {
-			TimeUnit.MILLISECONDS.sleep(readTimeout);
-		} catch (InterruptedException e) {
-		}
-		return read;
-	}
-
-	public void update(String data) {
-		this.buf = data.getBytes();
-		this.pos = 0;
-		this.count = buf.length;
+	default PidDefinition findBy(String pid) {
+		return findAll()
+				.stream()
+				.filter(p -> p.getPid().equals(pid))
+				.findFirst()
+				.orElse(null);
 	}
 }

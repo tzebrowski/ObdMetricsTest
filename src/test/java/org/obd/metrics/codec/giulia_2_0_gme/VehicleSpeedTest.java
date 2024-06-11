@@ -16,26 +16,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.obd.metrics.test.utils;
+package org.obd.metrics.codec.giulia_2_0_gme;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-public final class GenericAnswers {
+public class VehicleSpeedTest implements Giulia_2_0_GME_Test {
 
-	public static Map<String, String> genericAnswers() {
-		final Map<String, String> requestResponse = new HashMap<>();
-		requestResponse.put("ATZ", "connected?");
-		requestResponse.put("ATL0", "atzelm327v1.5");
-		requestResponse.put("ATH0", "ath0ok");
-		requestResponse.put("ATE0", "ate0ok");
-		requestResponse.put("ATSP0", "ok");
-		requestResponse.put("AT I", "elm327v1.5");
-		requestResponse.put("AT @1", "obdiitors232interpreter");
-		requestResponse.put("AT @2", "?");
-		requestResponse.put("AT DP", "auto");
-		requestResponse.put("AT DPN", "a0");
-		requestResponse.put("AT RV", "11.8v");
-		return requestResponse;
+	@ParameterizedTest
+	@CsvSource(value = { 
+			"6210020000=0",
+			"6210021000=32",
+			"6210022100=66",
+			"6210023100=98",
+			"6210024490=137",
+			"6210025490=169",
+			"6210026495=201"
+			}, delimiter = '=')
+	public void parameterizedTest(String input, Integer expected) {
+		assertEquals(input, expected);
 	}
 }
