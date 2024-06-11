@@ -1,0 +1,18 @@
+{	
+	"livedata": [
+		{
+			"priority": 0,
+			"type": "INT",
+			"id": "7046",
+			"mode": "22",
+			"pid": "1002",
+			"length": 2,
+			"description": "Vehicle Speed",
+			"min": "0",
+			"max": "300",
+			"units": "km/h",
+			"formula": "(A * 256 + B)/128"
+		}
+				
+	]
+}
