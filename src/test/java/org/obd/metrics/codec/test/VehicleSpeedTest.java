@@ -16,13 +16,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-package org.obd.metrics.codec.giulia_2_0_gme;
+package org.obd.metrics.codec.test;
 
-import org.obd.metrics.test.CodecTest;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-public interface TestVehicle_Codec extends CodecTest {
+public class VehicleSpeedTest implements TestVehicle_Codec {
 
-	public default String getPidFile() {
-		return "test.json";
+	@ParameterizedTest
+	@CsvSource(value = { 
+			"6210020000=0",
+			"6210021000=32",
+			"6210022100=66",
+			"6210023100=98",
+			"6210024490=137",
+			"6210025490=169",
+			"6210026495=201"
+			}, delimiter = '=')
+	public void parameterizedTest(String input, Integer expected) {
+		assertEquals(input, expected);
 	}
 }
