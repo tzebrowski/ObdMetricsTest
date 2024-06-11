@@ -73,7 +73,7 @@
 		<dependency>
 			<groupId>io.github.tzebrowski</groupId>
 			<artifactId>obd-metrics</artifactId>
-			<version>9.31.0-SNAPSHOT</version>
+			<version>9.30.0</version>
 		</dependency>
 		
 		<dependency>
