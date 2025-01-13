@@ -72,12 +72,6 @@
 						</format>
 					</formats>
 					<java>
-						<!--
-						<googleJavaFormat>
-							<version>1.8</version>
-							<style>AOSP</style>
-						</googleJavaFormat>
-						-->
 						<licenseHeader>
 							<file>${project.basedir}/license-header</file>
 						</licenseHeader>
@@ -113,7 +107,7 @@
 		<dependency>
 			<groupId>io.github.tzebrowski</groupId>
 			<artifactId>obd-metrics</artifactId>
-			<version>9.34.2-SNAPSHOT</version>
+			<version>9.30.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
