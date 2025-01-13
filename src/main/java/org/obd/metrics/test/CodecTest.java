@@ -27,7 +27,6 @@ import org.obd.metrics.codec.CodecRegistry;
 import org.obd.metrics.codec.batch.BatchCodec;
 import org.obd.metrics.codec.formula.FormulaEvaluatorConfig;
 import org.obd.metrics.command.obd.ObdCommand;
-import org.obd.metrics.context.Context;
 import org.obd.metrics.pid.PidDefinition;
 import org.obd.metrics.transport.message.ConnectorResponse;
 import org.obd.metrics.transport.message.ConnectorResponseFactory;
@@ -64,7 +63,7 @@ public interface CodecTest {
 		Assertions.assertThat(rawData).isNotNull();
 		
 		final CodecRegistry codecRegistry = CodecRegistry.
-				builder().context(Context.instance()).
+				builder().
 				formulaEvaluatorConfig(
 				FormulaEvaluatorConfig.builder(). 
 				debug(debug).scriptEngine("JavaScript").build()).build();
@@ -111,7 +110,6 @@ public interface CodecTest {
 
 		final CodecRegistry codecRegistry = CodecRegistry
 				.builder()
-				.context(Context.instance())
 				.formulaEvaluatorConfig(
 				FormulaEvaluatorConfig.builder().debug(debug).scriptEngine("JavaScript").build()).build();
 
