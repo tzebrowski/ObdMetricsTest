@@ -16,8 +16,12 @@
  */
 package org.obd.metrics.test;
 
+import java.util.Set;
+
+import org.obd.metrics.api.model.DiagnosticTroubleCode;
 import org.obd.metrics.api.model.Lifecycle;
 import org.obd.metrics.api.model.VehicleCapabilities;
+import org.obd.metrics.command.dtc.DiagnosticTroubleCodeClearStatus;
 import org.obd.metrics.command.routine.RoutineCommand;
 import org.obd.metrics.command.routine.RoutineExecutionStatus;
 
@@ -43,6 +47,14 @@ public final class SimpleLifecycle implements Lifecycle {
 	
 	@Getter
 	RoutineCommand routineCommand;
+	
+	@Getter
+	private Set<DiagnosticTroubleCode> receivedDtc;
+	
+	@Override
+	public void onDTCCompleted(Set<DiagnosticTroubleCode> dtc, DiagnosticTroubleCodeClearStatus status) {
+		this.receivedDtc = dtc;
+	}
 	
 	@Override
 	public void onRunning(VehicleCapabilities props) {
