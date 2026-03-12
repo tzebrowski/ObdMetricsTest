@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.tzebrowski</groupId>
 	<artifactId>obd-metrics-test</artifactId>
@@ -82,15 +84,15 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>sonatypeSnapshots</id>
-			<name>Sonatype Snapshots</name>
+			<id>oss.sonatype.org.snapshots</id>
+			<name>Sonatype Snapshot Repository</name>
+			<url>https://central.sonatype.com/repository/maven-snapshots</url>
 			<releases>
 				<enabled>false</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-			<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
 		</repository>
 	</repositories>
 	<distributionManagement>
@@ -100,7 +102,8 @@
 		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
-			<url>https://central.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<url>
+				https://central.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
 	<dependencies>
