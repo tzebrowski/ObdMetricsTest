@@ -44,9 +44,6 @@ public final class SimpleLifecycle implements Lifecycle {
 	@Getter
 	RoutineCommand routineCommand;
 	
-
-	
-	
 	@Override
 	public void onRunning(VehicleCapabilities props) {
 		log.info("Vehicle metadata: {}", props.getMetadata());
