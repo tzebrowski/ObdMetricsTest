@@ -1,5 +1,5 @@
  /**
- * Copyright 2019-2025, Tomasz Żebrowski
+ * Copyright 2019-2026, Tomasz Żebrowski
  *
  * <p>Licensed to the Apache Software Foundation (ASF) under one or more contributor license
  * agreements. See the NOTICE file distributed with this work for additional information regarding
@@ -32,13 +32,13 @@ import org.obd.metrics.transport.message.ConnectorResponse;
 import org.obd.metrics.transport.message.ConnectorResponseFactory;
 
 public interface CodecTest {
-	
+
 	public String getPidFile();
-		
+
 	default void assertEquals(long id, String actualValue, Object expectedValue) {
 		assertEquals(false, actualValue.substring(2, 6), id, getPidFile(), actualValue, expectedValue);
 	}
-	
+
 	default void assertEquals(String actualValue, Object expectedValue) {
 		assertEquals(Boolean.FALSE, actualValue, expectedValue);
 	}
@@ -46,11 +46,11 @@ public interface CodecTest {
 	default void assertCloseTo(String actualValue, float expectedValue, float offset) {
 		assertCloseTo(false, actualValue.substring(2, 6), getPidFile(), actualValue, expectedValue, offset);
 	}
-	
+
 	default void assertEquals(boolean debug, String actualValue, Object expectedValue) {
 		assertEquals(debug, actualValue.substring(2, 6), null, getPidFile(), actualValue, expectedValue);
 	}
-	
+
 	default void assertEquals(String pid, String pidSource, String rawData, Object expectedValue) {
 		assertEquals(false, pid, null, pidSource, rawData, expectedValue);
 	}
@@ -61,12 +61,9 @@ public interface CodecTest {
 		Assertions.assertThat(pid).isNotNull();
 		Assertions.assertThat(pidSource).isNotNull();
 		Assertions.assertThat(rawData).isNotNull();
-		
-		final CodecRegistry codecRegistry = CodecRegistry.
-				builder().
-				formulaEvaluatorConfig(
-				FormulaEvaluatorConfig.builder(). 
-				debug(debug).scriptEngine("JavaScript").build()).build();
+
+		final CodecRegistry codecRegistry = CodecRegistry.builder().formulaEvaluatorConfig(
+				FormulaEvaluatorConfig.builder().debug(debug).scriptEngine("JavaScript").build()).build();
 
 		PidDefinition pidDef = null;
 		if (id == null) {
@@ -76,8 +73,8 @@ public interface CodecTest {
 		}
 
 		Assertions.assertThat(pidDef).isNotNull();
-		final Codec<?> codec = codecRegistry.findCodec(pidDef);
-		
+		final Codec<?, ?> codec = codecRegistry.findCodec(pidDef);
+
 		if (codec == null) {
 			Assertions.fail("No codec available for PID: {}", pid);
 		} else {
@@ -85,16 +82,17 @@ public interface CodecTest {
 				final ObdCommand command = new ObdCommand(pidDef);
 				final List<ObdCommand> commands = Arrays.asList(command);
 				final BatchCodec batchCodec = BatchCodec.builder().query(pidDef.getPid()).commands(commands).build();
-				final Map<ObdCommand, ConnectorResponse> values = batchCodec.decode(ConnectorResponseFactory.wrap(rawData.getBytes()));
-				
+				final Map<ObdCommand, ConnectorResponse> values = batchCodec
+						.decode(ConnectorResponseFactory.wrap(rawData.getBytes()));
+
 				final ConnectorResponse cr = values.get(command);
 				final Object value = codecRegistry.findCodec(command.getPid()).decode(command.getPid(), cr);
 				final Object expected = expectedValue;
 				Assertions.assertThat(value)
-							.overridingErrorMessage("PID: %s, expected: %s, evaluated=%s", pid, expected, value)
-							.isEqualTo(expected);
+						.overridingErrorMessage("PID: %s, expected: %s, evaluated=%s", pid, expected, value)
+						.isEqualTo(expected);
 
-			} else { 
+			} else {
 				final Object actualValue = codec.decode(pidDef, ConnectorResponseFactory.wrap(rawData.getBytes()));
 				Assertions.assertThat(actualValue).isEqualTo(expectedValue);
 			}
@@ -108,19 +106,18 @@ public interface CodecTest {
 		Assertions.assertThat(pidSource).isNotNull();
 		Assertions.assertThat(rawData).isNotNull();
 
-		final CodecRegistry codecRegistry = CodecRegistry
-				.builder()
-				.formulaEvaluatorConfig(
+		final CodecRegistry codecRegistry = CodecRegistry.builder().formulaEvaluatorConfig(
 				FormulaEvaluatorConfig.builder().debug(debug).scriptEngine("JavaScript").build()).build();
 
 		final PidDefinition pidDef = PIDsRegistryFactory.get(pidSource).findBy(pid);
 		Assertions.assertThat(pidDef).isNotNull();
-		final Codec<?> codec = codecRegistry.findCodec(pidDef);
+		final Codec<?, ?> codec = codecRegistry.findCodec(pidDef);
 
 		if (codec == null) {
 			Assertions.fail("No codec available for PID: {}", pid);
 		} else {
-			final Float actualValue = ((Number) codec.decode(pidDef, ConnectorResponseFactory.wrap(rawData.getBytes()))).floatValue();
+			final Float actualValue = ((Number) codec.decode(pidDef, ConnectorResponseFactory.wrap(rawData.getBytes())))
+					.floatValue();
 			Assertions.assertThat(actualValue).isCloseTo(expectedValue, Offset.offset(offset));
 		}
 	}

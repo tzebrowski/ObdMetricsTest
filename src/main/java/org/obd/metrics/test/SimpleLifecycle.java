@@ -1,5 +1,5 @@
  /**
- * Copyright 2019-2025, Tomasz Żebrowski
+ * Copyright 2019-2026, Tomasz Żebrowski
  *
  * <p>Licensed to the Apache Software Foundation (ASF) under one or more contributor license
  * agreements. See the NOTICE file distributed with this work for additional information regarding
@@ -43,6 +43,9 @@ public final class SimpleLifecycle implements Lifecycle {
 	
 	@Getter
 	RoutineCommand routineCommand;
+	
+
+	
 	
 	@Override
 	public void onRunning(VehicleCapabilities props) {
